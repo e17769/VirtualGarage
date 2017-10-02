@@ -1,0 +1,14 @@
+{
+    "name":"Garage",
+    "version":"1.0.0",
+    "description":"Simple bike grage",
+    "main":"app.js",
+    "scripts":{},
+    "dependencies": {
+        "express":"*",
+        "body-parser":"*",
+        "mongoose":"*"
+    },
+    "author":"Ahmed Gadir",
+    "license": "ISC"
+}

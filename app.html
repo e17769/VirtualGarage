@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  
+    $('#owned').click(function(){
+        $('#garage').empty();
+        $.getJSON('/api/owned', { get_param: 'value' }, function(data) {
+            data = $.parseJSON(data);
+            $.each(data, function(index, vehicleCategories) {
+                $.each(vehicleCategories,function(index,vehicleCategory){
+                    $('#garage').append($('<div>', {
+                        text: vehicleCategory.Type
+                    }));
+                });
+            });
+        });
+    });
+});
+</script>
+</head>
+<body>
+     <div id='owned' >What do I have in my Grage?</div>
+    <div id ='garage'>---</div>
+
+
+</body>
+</html>
