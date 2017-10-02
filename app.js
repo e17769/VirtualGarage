@@ -7,7 +7,7 @@ var path = require("path");
 
 //connect to mongoose
 /*mongoose.connect('mongodb://localhost/garage');
-var db = mongoose.connection;
+var db = mongoose.connection; 
 */
 
 //Mock data

@@ -1,5 +1,5 @@
 {
-    "name":"Garage",
+    "name":"VirtualGarage",
     "version":"1.0.0",
     "description":"Simple bike grage",
     "main":"app.js",
