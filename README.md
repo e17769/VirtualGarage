@@ -1,6 +1,8 @@
 # VirtualGarage
+Purpose:
+This NodeJs project will help you add vehicle into your garage. Then later have a list of inventory items and the program will find the items in the inventory that match your selected vehicle 
 DB setup:
-You can uncomment the Moc data section to have some test data or you can start seeding the Mongodb with the following script. I am assuming that you have some Mongodb background.
+You can uncomment the mock data section to have some test data or you can start seeding the Mongoldb with the following script. I am assuming that you have some Mongoldb background.
 
 Script:
 use garage
