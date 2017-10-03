@@ -29,7 +29,6 @@ app.get('/', function(req, res){
 app.get('/api/owned',function(rec, res){
     var MongoClient = mongodb.MongoClient;
     var url ='mongodb://localhost:27017/garage';
-    //res.setHeader('Content-Type', 'application/json');
     MongoClient.connect(url, function(err, db){
         if(err){
             console.log('Unable to connect',err);
@@ -44,7 +43,6 @@ app.get('/api/owned',function(rec, res){
                 }
                 else{
                     res.send('You do not have anything in your garage!!');
-
                 }
                 db.close();
             });
@@ -56,15 +54,31 @@ app.get('/api/owned/:_id',function(rec, res){
     var id = rec.params._id;
     if(id)
     {
-        //res.write(id);
-        var jData = JSON.parse(owned);
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(jData));
-        //res.end();
+        var MongoClient = mongodb.MongoClient;
+    var url ='mongodb://localhost:27017/garage';
+    MongoClient.connect(url, function(err, db){
+        if(err){
+            console.log('Unable to connect',err);
+        }else{
+            var collection = db.collection('owned');
+            collection.find({ _id: id } ).toArray(function(err,result){ 
+                if(err){
+                    res.send(err);
+                }else if(result.length){
+                 
+                    res.json(result);
+                }
+                else{
+                    res.send('You do not have anything in your garage!!');
+                }
+                db.close();
+            });
+        }
+    });
     }
     else
     {
-        //res.json(owned);
+        res.send('You do not have this item in your garage!!');
     }
 });
 
