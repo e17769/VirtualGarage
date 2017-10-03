@@ -1,5 +1,5 @@
 var express = require('express');
-var app= express();
+var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var path = require("path");
@@ -22,26 +22,25 @@ var owned = '{"bikes":[';
  */
 
 //APIs
-app.get('/', function(req, res){
-    res.sendFile(path.join(__dirname +'/app.html'));
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/app.html'));
 });
 
-app.get('/api/owned',function(rec, res){
+app.get('/api/owned', function(rec, res) {
     var MongoClient = mongodb.MongoClient;
-    var url ='mongodb://localhost:27017/garage';
-    MongoClient.connect(url, function(err, db){
-        if(err){
-            console.log('Unable to connect',err);
-        }else{
+    var url = 'mongodb://localhost:27017/garage';
+    MongoClient.connect(url, function(err, db) {
+        if (err) {
+            console.log('Unable to connect', err);
+        } else {
             var collection = db.collection('owned');
-            collection.find({}).toArray(function(err,result){ 
-                if(err){
+            collection.find({}).toArray(function(err, result) {
+                if (err) {
                     res.send(err);
-                }else if(result.length){
-                 
+                } else if (result.length) {
+
                     res.json(result);
-                }
-                else{
+                } else {
                     res.send('You do not have anything in your garage!!');
                 }
                 db.close();
@@ -50,34 +49,30 @@ app.get('/api/owned',function(rec, res){
     });
 });
 
-app.get('/api/owned/:_id',function(rec, res){
-    var id = rec.params._id;
-    if(id)
-    {
+app.get('/api/owned/:_id', function(rec, res) {
+    var vid = rec.params._id;
+    if (vid) {
         var MongoClient = mongodb.MongoClient;
-    var url ='mongodb://localhost:27017/garage';
-    MongoClient.connect(url, function(err, db){
-        if(err){
-            console.log('Unable to connect',err);
-        }else{
-            var collection = db.collection('owned');
-            collection.find({ _id: id } ).toArray(function(err,result){ 
-                if(err){
-                    res.send(err);
-                }else if(result.length){
-                 
-                    res.json(result);
-                }
-                else{
-                    res.send('You do not have anything in your garage!!');
-                }
-                db.close();
-            });
-        }
-    });
-    }
-    else
-    {
+        var url = 'mongodb://localhost:27017/garage';
+        MongoClient.connect(url, function(err, db) {
+            if (err) {
+                console.log('Unable to connect', err);
+            } else {
+                var collection = db.collection('owned');
+                collection.find({"Id": vid}).toArray(function(err, result) {
+                    if (err) {
+                        res.send(err);
+                    } else if (result.length) {
+
+                        res.json(result);
+                    } else {
+                        res.send('You do not have anything in your garage with an Id of (' + vid + ')');
+                    }
+                    db.close();
+                });
+            }
+        });
+    } else {
         res.send('You do not have this item in your garage!!');
     }
 });

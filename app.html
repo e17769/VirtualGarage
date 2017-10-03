@@ -9,9 +9,9 @@ $(document).ready(function(){
         $('#garage').empty();
         $.getJSON('/api/owned', { get_param: 'value' }, function(data) {
             
-            $.each(data[0].bikes, function(index, bike) {
+            $.each(data, function(index, vehicle) {
                     $('#garage').append($('<div>', {
-                        text: bike.Type
+                        text: vehicle.Model
                     }));
             });
         });
