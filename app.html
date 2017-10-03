@@ -8,13 +8,11 @@ $(document).ready(function(){
     $('#owned').click(function(){
         $('#garage').empty();
         $.getJSON('/api/owned', { get_param: 'value' }, function(data) {
-            data = $.parseJSON(data);
-            $.each(data, function(index, vehicleCategories) {
-                $.each(vehicleCategories,function(index,vehicleCategory){
+            
+            $.each(data[0].bikes, function(index, bike) {
                     $('#garage').append($('<div>', {
-                        text: vehicleCategory.Type
+                        text: bike.Type
                     }));
-                });
             });
         });
     });

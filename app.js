@@ -3,6 +3,7 @@ var app= express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var path = require("path");
+var mongodb = require('mongodb');
 
 
 //connect to mongoose
@@ -11,12 +12,14 @@ var db = mongoose.connection;
 */
 
 //Mock data
+/*
 var owned = '{"bikes":[';
     owned = owned + ' { "Id":1,"Make": "Yamaha", "Type":"R1", "Year":2015}';
     owned = owned + ',{ "Id":2,"Make": "Honda", "Type":"CBR", "Year":2012}';
     owned = owned + ',{ "Id":3,"Make": "Suzuki", "Type":"GSXR", "Year":2008}';
     owned = owned + '';
     owned = owned + ']}'
+ */
 
 //APIs
 app.get('/', function(req, res){
@@ -24,8 +27,29 @@ app.get('/', function(req, res){
 });
 
 app.get('/api/owned',function(rec, res){
-    res.setHeader('Content-Type', 'application/json');
-    res.json(owned);
+    var MongoClient = mongodb.MongoClient;
+    var url ='mongodb://localhost:27017/garage';
+    //res.setHeader('Content-Type', 'application/json');
+    MongoClient.connect(url, function(err, db){
+        if(err){
+            console.log('Unable to connect',err);
+        }else{
+            var collection = db.collection('owned');
+            collection.find({}).toArray(function(err,result){ 
+                if(err){
+                    res.send(err);
+                }else if(result.length){
+                 
+                    res.json(result);
+                }
+                else{
+                    res.send('You do not have anything in your garage!!');
+
+                }
+                db.close();
+            });
+        }
+    });
 });
 
 app.get('/api/owned/:_id',function(rec, res){
