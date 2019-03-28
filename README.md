@@ -4,6 +4,8 @@ This NodeJs project will help you add vehicle into your garage. Then later have 
 DB setup:
 You can uncomment the mock data section to have some test data or you can start seeding the Mongoldb with the following script. I am assuming that you have some Mongoldb background.
 
+Status:
+The project is still in its infancy.  It is by no means feature complete yet! 
 Script:
 use garage
 
